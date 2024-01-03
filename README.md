@@ -1,3 +1,6 @@
+This project is the property of adjoe GmbH and is published for the sole use of entities with which adjoe has a contractual agreement.
+The unauthorized redistribution of any or all parts of this project is strictly prohibited.
+
 # Add Flutter SDK to your app.
 
 To integrate the adjoe Flutter SDK into your Flutter project, follow these steps:
