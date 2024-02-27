@@ -7,14 +7,15 @@ To integrate the adjoe Flutter SDK into your Flutter project, follow these steps
 
 1. Open your project's `pubspec.yaml` file.
 
-2. Add the adjoe SDK as a dependency under the `dependencies` section:
+2. Add the adjoe SDK as a dependency under the `dependencies` section. You can change the version number to the desired version of adjoe SDK you want to integrate.
+
 
 ```yaml
 dependencies:
   adjoe:
     git:
       url: https://github.com/adjoeio/adjoe-flutter-sdk
-      ref: main
+      ref: v2.1.1
 ```
 3. save the `pubspec.yaml` and run a `pub get` command on your Editor/IDE or run the following command:
 ```
