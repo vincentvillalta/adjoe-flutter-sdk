@@ -185,6 +185,8 @@ public class AdjoePlugin implements FlutterPlugin, MethodCallHandler, ActivityAw
                     .setParams(params);
         }
 
+        options.w("flutter");
+
         Adjoe.init(context, sdkHash, options, new AdjoeInitialisationListener() {
 
             @Override

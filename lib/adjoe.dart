@@ -113,6 +113,7 @@ class Adjoe {
   /// import 'package:adjoe/user_profile.dart';
   /// import 'package:adjoe/gender.dart';
   /// ...
+  /// @Deprecated('Use options parameter in init method to pass the profile data instead')
   /// AdjoeUserProfile profile = new AdjoeUserProfile()
   ///   ..birthday = _birthday
   ///   ..gender = _gender;
@@ -122,6 +123,7 @@ class Adjoe {
   ///   print('Failed to set profile: $err');
   /// });
   /// ```
+  @Deprecated('Use options parameter in init method to pass the profile data instead')
   static Future<void> setProfile(String? source, AdjoeUserProfile profile,
       [AdjoeParams? params]) async {
     return _channel.invokeMethod('setProfile', {
