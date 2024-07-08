@@ -1,5 +1,5 @@
 group 'io.adjoe.sdk.flutter'
-version '2.2.1'
+version '2.2.2'
 
 buildscript {
     repositories {
@@ -34,6 +34,6 @@ android {
         disable 'InvalidPackage'
     }
     dependencies {
-        implementation 'io.adjoe:adjoe-sdk-android:2.2.1'
+        implementation 'io.adjoe:adjoe-sdk-android:2.2.2'
     }
 }
