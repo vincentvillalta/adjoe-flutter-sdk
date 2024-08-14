@@ -1,4 +1,4 @@
-enum AdjoeGender {
+enum PlaytimeGender {
   MALE,
   FEMALE,
   UNKNOWN,

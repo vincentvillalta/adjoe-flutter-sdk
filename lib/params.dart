@@ -1,15 +1,15 @@
-/// Use this class to pass information about the user acquisition and the offerwall placement.
+/// Use this class to pass information about the user acquisition and the Catalog placement.
 ///
 /// ```dart
-/// AdjoeParams params = new AdjoeParams()
+/// PlaytimeParams params = new PlaytimeParams()
 ///   ..uaNetwork = 'network'
 ///   ..uaChannel = 'channel'
 ///   ..uaSubPublisherCleartext = 'cleartext'
 ///   ..haSubPublisherEncrypted = 'encrypted'
 ///   ..placement = 'placement')
-/// Adjoe.showOfferwall(params)
+/// Playtime.showCatalog(params)
 /// ```
-class AdjoeParams {
+class PlaytimeParams {
   /// The user acquisition network.
   String? uaNetwork;
 
@@ -22,6 +22,6 @@ class AdjoeParams {
   /// The user acquisition publisher encrypted.
   String? uaSubPublisherEncrypted;
 
-  /// The offerwall placement.
+  /// The Catalog placement.
   String? placement;
 }

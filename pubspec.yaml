@@ -1,6 +1,6 @@
 name: adjoe
-description: The official Flutter wrapper of the adjoe SDK.
-version: 2.2.2
+description: The official Flutter wrapper of the Playtime SDK.
+version: 3.0.0-beta.1
 homepage: https://adjoe.io
 documentation: https://docs.adjoe.io
 
@@ -21,6 +21,6 @@ flutter:
     platforms:
       android:
         package: io.adjoe.sdk.flutter
-        pluginClass: AdjoePlugin
+        pluginClass: PlaytimePlugin
 
 publish_to: none

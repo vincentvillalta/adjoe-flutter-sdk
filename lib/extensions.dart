@@ -2,7 +2,7 @@
 /// the informations will be sent back in s2s payout.
 ///
 /// ```dart
-/// AdjoeExtensions extensions = new AdjoeExtensions()
+/// PlaytimeExtensions extensions = new PlaytimeExtensions()
 ///   ..subId1 = 'subId1'
 ///   ..subId2 = 'subId2'
 ///   ..subId3 = 'subId3'
@@ -11,7 +11,7 @@
 ///
 
 
-class AdjoeExtensions {
+class PlaytimeExtensions {
 
   String? subId1;
   String? subId2;

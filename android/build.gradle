@@ -1,5 +1,5 @@
 group 'io.adjoe.sdk.flutter'
-version '2.2.2'
+version '3.0.0-beta.1'
 
 buildscript {
     repositories {
@@ -17,7 +17,7 @@ rootProject.allprojects {
         google()
         jcenter()
         maven {
-            url  "https://releases.adjoe.io/maven"
+            url  "https://pre-releases.adjoe.io/maven-pre-release"
         }
     }
 }
@@ -34,6 +34,6 @@ android {
         disable 'InvalidPackage'
     }
     dependencies {
-        implementation 'io.adjoe:adjoe-sdk-android:2.2.2'
+        implementation 'io.adjoe:adjoe-sdk-android:3.0.0-beta.1'
     }
 }

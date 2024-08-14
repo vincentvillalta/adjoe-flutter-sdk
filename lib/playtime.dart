@@ -6,40 +6,40 @@ import 'package:adjoe/user_profile.dart';
 import 'package:flutter/services.dart';
 import 'package:adjoe/extensions.dart';
 
-class Adjoe {
+class Playtime {
   static const int _EVENT_TEASER_SHOWN = 14;
 
-  static const MethodChannel _channel = const MethodChannel('adjoe');
+  static const MethodChannel _channel = const MethodChannel('playtime');
 
-  /// Initializes the adjoe SDK.
+  /// Initializes the Playtime SDK.
   ///
-  /// You must initialize the adjoe SDK before you can use any of its features.
+  /// You must initialize the Playtime SDK before you can use any of its features.
   /// The initialization will run asynchronously in the background and returns a [Future]. The callback returns no value when the init succeeds
   /// and returns the error when the init fails.
   ///
   /// The [sdkHash] is required. The [options] are used to pass optional values like the `userId`.
   ///
   /// ```dart
-  /// AdjoeOptions options = new AdjoeOptions()
+  /// PlaytimeOptions options = new PlaytimeOptions()
   ///   ..userId = 'user_id'
   ///   ..applicationProcessName = 'name'
-  ///   ..params = (new AdjoeParams()
+  ///   ..params = (new PlaytimeParams()
   ///     ..uaNetwork = 'network'
   ///     ..uaChannel = 'channel'
   ///     ..uaSubPublisherCleartext = 'cleartext'
   ///     ..haSubPublisherEncrypted = 'encrypted'
   ///     ..placement = 'placement')
-  ///   ..userProfile = (new AdjoeUserProfile()
+  ///   ..userProfile = (new PlaytimeUserProfile()
   ///     ..birthday = birthday
   ///     ..gender = gender;
   ///
-  /// Adjoe.init(sdkHash, options).then((_) {
+  /// Playtime.init(sdkHash, options).then((_) {
   ///   print('Init finished successful');
   /// }, onError: (err) {
   ///   print('Init failed: $err');
   /// });
   /// ```
-  static Future<void> init(String sdkHash, [AdjoeOptions? options]) async {
+  static Future<void> init(String sdkHash, [PlaytimeOptions? options]) async {
     return _channel.invokeMethod('init', {
       'sdk_hash': sdkHash,
       'options': {
@@ -53,31 +53,31 @@ class Adjoe {
     });
   }
 
-  /// Launches the offerwall which contains the UI to show the user the rewarded apps which he can use.
+  /// Launches the Catalog which contains the UI to show the user the rewarded apps which he can use.
   ///
-  /// You can use the optional [AdjoeParams] to pass information about the placement and user acquisition channel.
+  /// You can use the optional [PlaytimeParams] to pass information about the placement and user acquisition channel.
   ///
   /// ```dart
-  /// Adjoe.showOfferwall();
+  /// Playtime.showCatalog();
   /// ```
-  static void showOfferwall([AdjoeParams? params]) async {
+  static void showCatalog([PlaytimeParams? params]) async {
     return _channel
-        .invokeMethod('showOfferwall', {'params': _paramsToMap(params)});
+        .invokeMethod('showCatalog', {'params': _paramsToMap(params)});
   }
 
-  /// Checks whether the offerwall can be shown for the user.
+  /// Checks whether the Catalog can be shown for the user.
   ///
   /// Returns `true` if it can be shown and `false` otherwise.
   ///
   /// ```dart
-  /// Adjoe.canShowOfferwall().then((canShow) {
+  /// Playtime.canShowCatalog().then((canShow) {
   ///   if (canShow) {
-  ///     Adjoe.showOfferwall();
+  ///     Playtime.showCatalog();
   ///   }
   /// });
   /// ```
-  static Future<bool?> canShowOfferwall() async {
-    return _channel.invokeMethod('canShowOfferwall');
+  static Future<bool?> canShowCatalog() async {
+    return _channel.invokeMethod('canShowCatalog');
   }
 
   /// Pays out the user's collected rewards.
@@ -85,77 +85,42 @@ class Adjoe {
   /// When finished, the returned [Future] succeeds when the payout was successful and it will return the amount of paid out rewards.
   /// If the payout fails, the [Future] will fail with an exception.
   ///
-  /// You can use the optional [AdjoeParams] to pass information about the placement and user acquisition channel.
+  /// You can use the optional [PlaytimeParams] to pass information about the placement and user acquisition channel.
   ///
   /// ```dart
-  /// Adjoe.doPayout().then((value) {
+  /// Playtime.doPayout().then((value) {
   ///   print('Paid out $value rewards');
   /// }, onError: (err) {
   ///   print('Error while paying out: $err');
   /// });
   /// ```
-  static Future<int?> doPayout([AdjoeParams? params]) async {
+  static Future<int?> doPayout([PlaytimeParams? params]) async {
     return _channel.invokeMethod('doPayout', {'params': _paramsToMap(params)});
   }
 
-  /// Provides adjoe with information about the user's profile.
-  ///
-  /// With this information adjoe can suggest better matching apps to the user.
-  ///
-  /// The [source] describes where the profile information comes from (like `"facebook"`, `"google"`, `"user-input"`, ...).
-  /// It is possible to set only one of `gender` and `birthday` in the [AdjoeUserProfile]. The year of birth suffices for the `birthday`.
-  ///
-  /// You can use the optional [AdjoeParams] to pass information about the placement and user acquisition channel.
-  ///
-  /// Returns a [Future] which succeeds when the profile information has been sent and fails if sending the profile information fails.
-  ///
-  /// ```dart
-  /// import 'package:adjoe/user_profile.dart';
-  /// import 'package:adjoe/gender.dart';
-  /// ...
-  /// @Deprecated('Use options parameter in init method to pass the profile data instead')
-  /// AdjoeUserProfile profile = new AdjoeUserProfile()
-  ///   ..birthday = _birthday
-  ///   ..gender = _gender;
-  /// Adjoe.setProfile(_profileSource, profile).then((_) {
-  ///   print('Profile was set');
-  /// }, onError: (err) {
-  ///   print('Failed to set profile: $err');
-  /// });
-  /// ```
-  @Deprecated('Use options parameter in init method to pass the profile data instead')
-  static Future<void> setProfile(String? source, AdjoeUserProfile profile,
-      [AdjoeParams? params]) async {
-    return _channel.invokeMethod('setProfile', {
-      'source': source,
-      'user_profile': _profileToMap(profile),
-      'params': _paramsToMap(params)
-    });
-  }
-
-  /// Provides adjoe with information about the User Acquisition parameters (UA Params).
+  /// Provides Playtime with information about the User Acquisition parameters (UA Params).
   ///
   ///
-  /// [AdjoeParams] to pass information about the placement and user acquisition network, channel.... etc
+  /// [PlaytimeParams] to pass information about the placement and user acquisition network, channel.... etc
   ///
   /// Returns a [Future] which succeeds when the UA parameter has been sent and fails if sending UA parameter fails.
   ///
   /// ```dart
   /// import 'package:adjoe/params.dart';
   /// ...
-  /// AdjoeParams params = new AdjoeParams(
+  /// PlaytimeParams params = new PlaytimeParams(
   ///   ..uaNetwork = 'network'
   ///   ..uaChannel = 'channel'
   ///   ..uaSubPublisherCleartext = 'cleartext'
   ///   ..haSubPublisherEncrypted = 'encrypted'
   ///   ..placement = 'placement')
-  /// Adjoe.setProfile(params).then((_) {
+  /// Playtime.setProfile(params).then((_) {
   ///   print('UA was set');
   /// }, onError: (err) {
   ///   print('Failed to set UA parameters: $err');
   /// });
   /// ```
-  static Future<void> setUAParams(AdjoeParams params) async {
+  static Future<void> setUAParams(PlaytimeParams params) async {
     return _channel.invokeMethod("setUAParams", {
       'params': _paramsToMap(params)
     });
@@ -163,7 +128,7 @@ class Adjoe {
 
   /// Requests the user's current rewards, including how many of them are available for payout and how many have already been paid out.
   ///
-  /// You can use the optional [AdjoeParams] to pass information about the placement and user acquisition channel.
+  /// You can use the optional [PlaytimeParams] to pass information about the placement and user acquisition channel.
   ///
   /// The returned [Future]'s [Map] contains three fields:
   ///  - `reward`: the total amount of rewards (available for payout + already spent).
@@ -171,10 +136,10 @@ class Adjoe {
   ///  - `already_spent`: the amount of rewards which have already been paid out.
   ///  The [Future] will fail with an exception if the request fails.
   ///
-  /// You can use the optional [AdjoeParams] to pass information about the placement and user acquisition channel.
+  /// You can use the optional [PlaytimeParams] to pass information about the placement and user acquisition channel.
   ///
   /// ```dart
-  /// Adjoe.requestRewards().then((rewards) {
+  /// Playtime.requestRewards().then((rewards) {
   ///   int amount = rewards['reward'];
   ///   int available = rewards['available_for_payout'];
   ///   int spent = rewards['already_spent'];
@@ -183,28 +148,28 @@ class Adjoe {
   ///    print('Failed to request rewards: $err');
   /// });
   /// ```
-  static Future<Map?> requestRewards([AdjoeParams? params]) async {
+  static Future<Map?> requestRewards([PlaytimeParams? params]) async {
     return _channel
         .invokeMapMethod('requestRewards', {'params': _paramsToMap(params)});
   }
 
-  /// Sends the TEASER_SHOWN event to adjoe.
+  /// Sends the TEASER_SHOWN event to Playtime.
   ///
-  /// Call this method when the user can see the teaser, e.g. the button via which he can access the adjoe SDK from the SDK App.
-  /// Trigger this event when the teaser has been successfully rendered and would successfully redirect the user to the adjoe SDK.
+  /// Call this method when the user can see the teaser, e.g. the button via which he can access the Playtime SDK from the SDK App.
+  /// Trigger this event when the teaser has been successfully rendered and would successfully redirect the user to the Playtime SDK.
   /// It should be triggered regardless of whether the user has actually clicked the teaser or not.
   /// This event is mostly appropriate for uses, in which the functionality of the SDK App and SDK are kept separate to a relevant degree.
   //
-  /// You can use the optional [AdjoeParams] to pass information about the placement and user acquisition channel.
+  /// You can use the optional [PlaytimeParams] to pass information about the placement and user acquisition channel.
   ///
   /// ```dart
-  /// Adjoe.sendTeaserShownEvent().then((_) {
+  /// Playtime.sendTeaserShownEvent().then((_) {
   ///   print('Sent TEASER SHOWN user event.');
   /// }, onError: (err) {
   ///   print('Failed to send TEASER SHOWN user event: $err');
   /// });
   /// ```
-  static Future<void> sendTeaserShownEvent([AdjoeParams? params]) async {
+  static Future<void> sendTeaserShownEvent([PlaytimeParams? params]) async {
     return _channel.invokeMethod('sendEvent', {
       'event': _EVENT_TEASER_SHOWN,
       'extra': null,
@@ -212,41 +177,41 @@ class Adjoe {
     });
   }
 
-  /// Returns the version of the adjoe SDK.
+  /// Returns the version of the Playtime SDK.
   ///
   /// ```dart
-  /// int adjoeVersion = await Adjoe.getVersion();
+  /// int PlaytimeVersion = await Playtime.getVersion();
   /// ```
   static Future<int?> getVersion() async {
     return _channel.invokeMethod('getVersion');
   }
 
-  /// Returns the version name of the adjoe SDK.
+  /// Returns the version name of the Playtime SDK.
   ///
   /// ```dart
-  /// String adjoeVersionName = await Adjoe.getVersionName();
+  /// String PlaytimeVersionName = await Playtime.getVersionName();
   /// ```
   static Future<String?> getVersionName() async {
     return _channel.invokeMethod('getVersionName');
   }
 
-  /// Checks whether the adjoe SDK is initialized.
+  /// Checks whether the Playtime SDK is initialized.
   ///
   /// Returns `true` when it is initialized and `false` otherwise.
   ///
   /// ```dart
-  /// bool adjoeIsInitialized = await Adjoe.isInitialized();
+  /// bool playtimeIsInitialized = await Playtime.isInitialized();
   /// ```
   static Future<bool?> isInitialized() async {
     return _channel.invokeMethod('isInitialized');
   }
 
-  /// Checks whether the user has accepted the adjoe Terms of Service (TOS).
+  /// Checks whether the user has accepted the Playtime Terms of Service (TOS).
   ///
   /// Returns `true` if the TOS are accepted and `false` otherwise.
   ///
   /// ```dart
-  /// bool hasAcceptedAdjoeTOS = await Adjoe.hasAcceptedTOS();
+  /// bool hasAcceptedPlaytimeTOS = await Playtime.hasAcceptedTOS();
   /// ```
   static Future<bool?> hasAcceptedTOS() async {
     return _channel.invokeMethod('hasAcceptedTOS');
@@ -257,22 +222,22 @@ class Adjoe {
   /// Returns `true` if the user has given access to the usage statistics and `false` otherwise.
   ///
   /// ```dart
-  /// bool hasAcceptedUsagePermission = await Adjoe.hasAcceptedUsagePermission();
+  /// bool hasAcceptedUsagePermission = await Playtime.hasAcceptedUsagePermission();
   /// ```
   static Future<bool?> hasAcceptedUsagePermission() async {
     return _channel.invokeMethod('hasAcceptedUsagePermission');
   }
 
-  /// Returns the unique ID of the user by which he is identified within the adjoe services.
+  /// Returns the unique ID of the user by which he is identified within the Playtime services.
   ///
   /// ```dart
-  /// String adjoeUserId = await Adjoe.getUserId();
+  /// String playtimeUserId = await Playtime.getUserId();
   /// ```
   static Future<String?> getUserId() async {
     return _channel.invokeMethod('getUserId');
   }
 
-  static Map _paramsToMap(AdjoeParams? params) {
+  static Map _paramsToMap(PlaytimeParams? params) {
     return {
       'ua_network': params?.uaNetwork,
       'ua_channel': params?.uaChannel,
@@ -282,7 +247,7 @@ class Adjoe {
     };
   }
 
-  static Map _extensionsToMap(AdjoeExtensions? extensions) {
+  static Map _extensionsToMap(PlaytimeExtensions? extensions) {
     return {
       'subId1': extensions?.subId1,
       'subId2': extensions?.subId2,
@@ -292,7 +257,7 @@ class Adjoe {
     };
   }
 
-  static Map? _profileToMap(AdjoeUserProfile? userProfile) {
+  static Map? _profileToMap(PlaytimeUserProfile? userProfile) {
     if (userProfile == null) {
       return null;
     }

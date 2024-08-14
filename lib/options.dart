@@ -2,19 +2,19 @@ import 'package:adjoe/extensions.dart';
 import 'package:adjoe/params.dart';
 import 'package:adjoe/user_profile.dart';
 
-/// Use this class to pass additional parameters to [Adjoe.init].
+/// Use this class to pass additional parameters to [Playtime.init].
 ///
 /// ```dart
-/// AdjoeOptions options = new AdjoeOptions()
+/// PlaytimeOptions options = new PlaytimeOptions()
 ///   ..userId = 'userId'
 ///   ..applicationProcessName = 'name'
 ///   ..userProfile = _profile
 ///   ..params = _params;
 /// ```
-class AdjoeOptions {
+class PlaytimeOptions {
   String? userId;
   String? applicationProcessName;
-  AdjoeUserProfile? userProfile;
-  AdjoeParams? params;
-  AdjoeExtensions? extensions;
+  PlaytimeUserProfile? userProfile;
+  PlaytimeParams? params;
+  PlaytimeExtensions? extensions;
 }
